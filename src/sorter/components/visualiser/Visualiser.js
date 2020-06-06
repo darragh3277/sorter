@@ -3,30 +3,41 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./Visualiser.css";
 
-const render = (columns) =>
-  columns.map((col) => {
-    let width = col * 0.95;
+const renderNumbers = (col, useVariableHeight) => {
+  if (useVariableHeight === false) {
     return (
-      <Row className="mb-1 pl-1" key={col}>
-        <span className="column_number d-none d-sm-inline text-center">
-          {col}
-        </span>
+      <span className="column_number d-none d-sm-inline text-center">
+        {col}
+      </span>
+    );
+  }
+};
+
+const render = (columns, columnContainerHeight) =>
+  columns.map((col, i) => {
+    let width = col * 0.95;
+    let height = (columnContainerHeight - columns.length) / columns.length;
+    let useVariableHeight = height < 17;
+    height = useVariableHeight ? height + "px" : "1rem";
+    return (
+      <Row className="column_container pl-1" key={i}>
+        {renderNumbers(col, useVariableHeight)}
         <span
           className="column"
-          style={{ width: "" + width + "%", height: "1rem" }}
+          style={{ width: width + "%", height: height }}
         ></span>
       </Row>
     );
   });
 
-const Visualiser = ({ algorithm, columns }) => {
+const Visualiser = ({ algorithm, columns, columnContainerHeight }) => {
   return (
     <Col className="m-2" id="visualiser_container">
       <Row className="p-2 mb-2" id="visualiser_info">
         Algoritm: {algorithm} | Columns: {columns.length}
       </Row>
       <Row id="column_container">
-        <Col>{render(columns)}</Col>
+        <Col>{render(columns, columnContainerHeight)}</Col>
       </Row>
     </Col>
   );
