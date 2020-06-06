@@ -2,6 +2,7 @@ import React from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import "./Visualiser.css";
+import Dashboard from "../dashboard/Dashboard";
 
 const renderNumbers = (col, useVariableHeight) => {
   if (useVariableHeight === false) {
@@ -30,12 +31,10 @@ const render = (columns, columnContainerHeight) =>
     );
   });
 
-const Visualiser = ({ algorithm, columns, columnContainerHeight }) => {
+const Visualiser = ({ algorithm, columns, size, columnContainerHeight }) => {
   return (
     <Col className="m-2" id="visualiser_container">
-      <Row className="p-2 mb-2" id="visualiser_info">
-        Algoritm: {algorithm} | Columns: {columns.length}
-      </Row>
+      <Dashboard algorithm={algorithm} size={size} />
       <Row id="column_container">
         <Col>{render(columns, columnContainerHeight)}</Col>
       </Row>

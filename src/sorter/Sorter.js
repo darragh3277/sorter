@@ -9,6 +9,7 @@ class Sorter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      size: 10,
       columns: [],
       algorithm: "quicksort",
       columnContainerHeight: null,
@@ -19,7 +20,7 @@ class Sorter extends React.Component {
     let height = document.getElementById("column_container").offsetHeight;
     this.setState({
       columnContainerHeight: height,
-      columns: [1, 20, 3, 23, 100],
+      columns: [1, 20, 3, 23, 100], //max 100
     });
   }
 
@@ -30,6 +31,7 @@ class Sorter extends React.Component {
           <Sidebar />
           <Visualiser
             algorithm={this.state.algorithm}
+            size={this.state.size}
             columns={this.state.columns}
             columnContainerHeight={this.state.columnContainerHeight}
           />
