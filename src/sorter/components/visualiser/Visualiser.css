@@ -11,5 +11,7 @@
   overflow: hidden;
 }
 #visualiser_info {
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
   background-color: #ffffff;
 }
