@@ -1,0 +1,15 @@
+.column {
+  background-color: #1cc88a;
+  color: #ffffff;
+}
+.column_number {
+  width: 5%;
+  font-size: 0.75rem;
+}
+#column_container {
+  height: 90vh;
+  overflow: hidden;
+}
+#visualiser_info {
+  background-color: #ffffff;
+}
