@@ -6,7 +6,7 @@
   width: 5%;
   font-size: 0.75rem;
 }
-#column_container {
+#columns_container {
   height: 90vh;
   overflow: hidden;
 }

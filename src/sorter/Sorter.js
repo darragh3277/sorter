@@ -17,7 +17,7 @@ class Sorter extends React.Component {
   }
 
   componentDidMount() {
-    let height = document.getElementById("column_container").offsetHeight;
+    let height = document.getElementById("columns_container").offsetHeight;
     this.setState({
       columnContainerHeight: height,
       columns: [1, 20, 3, 23, 100], //max 100
