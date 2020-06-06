@@ -1,11 +1,14 @@
 import React from "react";
-import { Container, Row, Col, fluid } from "react-bootstrap";
+import Sidebar from "./components/sidebar/Sidebar";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function Sorter() {
   return (
     <Container fluid>
       <Row>
-        <Col>Side</Col>
+        <Sidebar />
         <Col>Content</Col>
       </Row>
     </Container>

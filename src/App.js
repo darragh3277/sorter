@@ -1,6 +1,6 @@
 import React from "react";
 import Sorter from "./sorter/Sorter";
-import logo from "./logo.svg";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
