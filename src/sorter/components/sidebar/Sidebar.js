@@ -9,7 +9,9 @@ const Sidebar = ({
   size,
   handleSizeChange,
   handleAlgorithmChange,
+  sorting,
 }) => {
+  let dis = "disabled";
   return (
     <Col className="sidebar d-none d-sm-block pt-3" xs={1} sm={4} md={3} lg={2}>
       <h1 className="logo text-center">
@@ -25,6 +27,7 @@ const Sidebar = ({
             name="algorithm"
             id="algorithm"
             onChange={handleAlgorithmChange}
+            disabled={sorting}
           >
             <option value="bubble_sort">Bubble Sort</option>
             <option value="quick_sort">Quick Sort</option>
@@ -42,11 +45,16 @@ const Sidebar = ({
             name="columns"
             onChange={handleSizeChange}
             value={size}
+            disabled={sorting}
           />
         </div>
         <hr />
         <div className="text-center pt-3">
-          <Button type="submit" className="btn btn-block btn-light">
+          <Button
+            type="submit"
+            className="btn btn-block btn-light"
+            disabled={sorting}
+          >
             Sort
           </Button>
         </div>

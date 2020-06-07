@@ -7,6 +7,9 @@ import Visualiser from "./components/visualiser/Visualiser";
 import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
 
+const compareSpeed = 600;
+const swapSpeed = 1000;
+
 class Sorter extends React.Component {
   constructor(props) {
     super(props);
@@ -17,8 +20,49 @@ class Sorter extends React.Component {
       columnContainerHeight: null,
       currentIndex: null,
       compareIndex: null,
+      sorting: false,
+      swapping: false,
     };
   }
+
+  runSorter = (sorter) => {
+    if (sorter.getIsSorted() === true) {
+      this.setState({
+        currentIndex: null,
+        compareIndex: null,
+        sorting: false,
+      });
+      return true;
+    }
+    this.setState({
+      currentIndex: sorter.getCurrentIndex(),
+      compareIndex: sorter.getCompareIndex(),
+      sorting: true,
+    });
+    if (sorter.compare()) {
+      setTimeout(() => {
+        this.setState({
+          swapping: true,
+        });
+        setTimeout(() => {
+          sorter.swap();
+          this.setState({
+            columns: sorter.getColumns(),
+            swapping: false,
+          });
+          sorter.step();
+          setTimeout(() => {
+            this.runSorter(sorter);
+          }, compareSpeed);
+        }, swapSpeed);
+      }, compareSpeed);
+    } else {
+      sorter.step();
+      setTimeout(() => {
+        this.runSorter(sorter);
+      }, compareSpeed);
+    }
+  };
 
   handleSort = (e) => {
     e.preventDefault();
@@ -29,22 +73,11 @@ class Sorter extends React.Component {
         sorter = new BubbleSort(this.state.columns);
         break;
       case "quick_sort":
-        console.log("running ssort");
         break;
       default:
         return false;
     }
-    let interval = setInterval(() => {
-      this.setState({
-        currentIndex: this.state.currentIndex,
-        compareIndex: this.state.compareIndex,
-      });
-      let columns = sorter.step();
-      this.setState({
-        columns,
-      });
-      if (sorter.getIsSorted === true) clearInterval(interval);
-    }, 300);
+    this.runSorter(sorter);
   };
 
   handleSizeChange = (e) => {
@@ -92,12 +125,16 @@ class Sorter extends React.Component {
             handleSizeChange={this.handleSizeChange}
             handleAlgorithmChange={this.handleAlgorithmChange}
             size={this.state.size}
+            sorting={this.state.sorting}
           />
           <Visualiser
             algorithm={this.state.algorithm}
             size={this.state.size}
             columns={this.state.columns}
             columnContainerHeight={this.state.columnContainerHeight}
+            currentIndex={this.state.currentIndex}
+            compareIndex={this.state.compareIndex}
+            swapping={this.state.swapping}
           />
         </Row>
       </Container>

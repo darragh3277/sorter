@@ -4,44 +4,77 @@ class BubbleSort {
     this.isSorted = false;
     this.swapped = false;
     this.currentIndex = 0;
-    this.currentValue = null;
-    this.compareValue = null;
+    this.compareIndex = 1;
+    this.count = 0;
   }
 
   getIsSorted = () => {
     return this.isSorted;
   };
 
-  getCurrentValue = () => {
-    return this.currentValue;
+  getCurrentIndex = () => {
+    return this.currentIndex;
   };
 
-  getCompareValue = () => {
-    return this.compareValue;
+  getCompareIndex = () => {
+    return this.compareIndex;
   };
 
-  getIsSorted = () => {
-    return this.isSorted;
+  getColumns = () => {
+    return this.columns;
+  };
+
+  //return true if needs to swap
+  compare = () => {
+    if (this.columns[this.currentIndex] > this.columns[this.compareIndex]) {
+      return true;
+    }
+    return false;
+  };
+
+  swap = () => {
+    let currentValue = this.columns[this.currentIndex];
+    let compareValue = this.columns[this.compareIndex];
+    this.columns[this.currentIndex] = compareValue;
+    this.columns[this.compareIndex] = currentValue;
+    this.swapped = true;
+    return this.columns;
   };
 
   step = () => {
-    this.currentValue = this.columns[this.currentIndex];
-    this.compareValue = this.columns[this.currentIndex + 1];
-    if (this.currentValue > this.compareValue) {
-      this.columns[this.currentIndex] = this.compareValue;
-      this.columns[this.currentIndex + 1] = this.currentValue;
-      this.swapped = true;
-    }
-    if (this.currentIndex + 1 > this.columns.length) {
+    if (this.compareIndex + 1 >= this.columns.length - this.count) {
       if (this.swapped !== true) this.isSorted = true;
       this.swapped = false;
       this.currentIndex = 0;
+      this.compareIndex = 1;
+      this.count++;
     } else {
       this.currentIndex++;
+      this.compareIndex++;
     }
-
-    return this.columns;
   };
+
+  // step = () => {
+  //   let currentValue = this.columns[this.currentIndex];
+  //   let compareValue = this.columns[this.compareIndex];
+  //   if (currentValue > compareValue) {
+  //     this.columns[this.currentIndex] = compareValue;
+  //     this.columns[this.compareIndex] = currentValue;
+  //     this.swapped = true;
+  //   }
+  //   if (this.compareIndex + 1 >= this.columns.length - this.count) {
+  //     if (this.swapped !== true) this.isSorted = true;
+  //     this.swapped = false;
+  //     this.currentIndex = 0;
+  //     this.compareIndex = 1;
+  //     this.count++;
+  //   } else {
+  //     this.currentIndex++;
+  //     this.compareIndex++;
+  //   }
+
+  //   return this.columns;
+  // };
 }
 
 export default BubbleSort;
