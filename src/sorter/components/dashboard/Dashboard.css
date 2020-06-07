@@ -1,0 +1,9 @@
+#burger-menu {
+  font-size: 1.5rem;
+  margin-bottom: 2px;
+  border-radius: 20%;
+}
+#burger-menu:hover {
+  cursor: pointer;
+  color: #9396ac;
+}

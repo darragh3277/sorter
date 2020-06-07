@@ -16,6 +16,11 @@ class Sorter extends React.Component {
     };
   }
 
+  handleSort(e) {
+    e.preventDefault();
+    console.log("sorting");
+  }
+
   columnContainerHeight = () => {
     let height = document.getElementById("columns_container").offsetHeight;
     this.setState({
