@@ -17,7 +17,7 @@ const Sidebar = ({
         SORTER
       </h1>
       <hr />
-      <form>
+      <form onSubmit={handleSort}>
         <div className="form-group">
           <label htmlFor="algorithm">Algorithm</label>
           <select
@@ -46,11 +46,7 @@ const Sidebar = ({
         </div>
         <hr />
         <div className="text-center pt-3">
-          <Button
-            type="submit"
-            className="btn btn-block btn-light"
-            onClick={handleSort}
-          >
+          <Button type="submit" className="btn btn-block btn-light">
             Sort
           </Button>
         </div>

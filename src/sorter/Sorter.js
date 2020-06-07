@@ -4,7 +4,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import "./Sorter.css";
 import Visualiser from "./components/visualiser/Visualiser";
-import generate from "./algorithms/generateColumns";
+import GenerateColumns from "./algorithms/GenerateColumns";
+import BubbleSort from "./algorithms/BubbleSort";
 
 class Sorter extends React.Component {
   constructor(props) {
@@ -14,18 +15,42 @@ class Sorter extends React.Component {
       columns: [],
       algorithm: { key: "bubble_sort", name: "Bubble Sort" },
       columnContainerHeight: null,
+      currentIndex: null,
+      compareIndex: null,
     };
   }
 
   handleSort = (e) => {
     e.preventDefault();
-    console.log(e.target);
+    let algorithm = e.target.algorithm.value;
+    let sorter;
+    switch (algorithm) {
+      case "bubble_sort":
+        sorter = new BubbleSort(this.state.columns);
+        break;
+      case "quick_sort":
+        console.log("running ssort");
+        break;
+      default:
+        return false;
+    }
+    let interval = setInterval(() => {
+      this.setState({
+        currentIndex: this.state.currentIndex,
+        compareIndex: this.state.compareIndex,
+      });
+      let columns = sorter.step();
+      this.setState({
+        columns,
+      });
+      if (sorter.getIsSorted === true) clearInterval(interval);
+    }, 300);
   };
 
   handleSizeChange = (e) => {
     let size = parseInt(e.target.value);
     if (!isNaN(size) && size >= 1 && size <= 100) {
-      let arr = new generate(size);
+      let arr = new GenerateColumns(size);
       this.setState({
         size,
         columns: arr.getColumns(),
@@ -51,7 +76,7 @@ class Sorter extends React.Component {
   componentDidMount() {
     window.addEventListener("resize", this.columnContainerHeight);
     let height = document.getElementById("columns_container").offsetHeight;
-    let arr = new generate(this.state.size);
+    let arr = new GenerateColumns(this.state.size);
     this.setState({
       columnContainerHeight: height,
       columns: arr.getColumns(),

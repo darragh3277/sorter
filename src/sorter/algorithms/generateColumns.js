@@ -1,4 +1,4 @@
-class generateColumns {
+class GenerateColumns {
   constructor(size) {
     this.size = size;
   }
@@ -18,4 +18,4 @@ class generateColumns {
   };
 }
 
-export default generateColumns;
+export default GenerateColumns;
