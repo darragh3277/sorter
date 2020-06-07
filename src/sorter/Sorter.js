@@ -7,9 +7,6 @@ import Visualiser from "./components/visualiser/Visualiser";
 import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
 
-const compareSpeed = 600;
-const swapSpeed = 1000;
-
 class Sorter extends React.Component {
   constructor(props) {
     super(props);
@@ -53,14 +50,14 @@ class Sorter extends React.Component {
           sorter.step();
           setTimeout(() => {
             this.runSorter(sorter);
-          }, compareSpeed);
-        }, swapSpeed);
-      }, compareSpeed);
+          }, sorter.getCompareSpeed());
+        }, sorter.getSwapSpeed());
+      }, sorter.getCompareSpeed());
     } else {
       sorter.step();
       setTimeout(() => {
         this.runSorter(sorter);
-      }, compareSpeed);
+      }, sorter.getCompareSpeed());
     }
   };
 

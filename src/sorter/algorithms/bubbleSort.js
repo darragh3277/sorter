@@ -8,6 +8,30 @@ class BubbleSort {
     this.count = 0;
   }
 
+  getCompareSpeed = () => {
+    let speed = 400;
+    if (this.columns.length > 10 && this.columns.length <= 25) {
+      speed = 100;
+    } else if (this.columns.length > 25 && this.columns.length <= 50) {
+      speed = 25;
+    } else if (this.columns.length > 50) {
+      speed = 5;
+    }
+    return speed;
+  };
+
+  getSwapSpeed = () => {
+    let speed = 800;
+    if (this.columns.length > 10 && this.columns.length <= 25) {
+      speed = 200;
+    } else if (this.columns.length > 25 && this.columns.length <= 50) {
+      speed = 50;
+    } else if (this.columns.length > 50) {
+      speed = 10;
+    }
+    return speed;
+  };
+
   getIsSorted = () => {
     return this.isSorted;
   };
