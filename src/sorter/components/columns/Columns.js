@@ -13,19 +13,25 @@ const renderNumbers = (col, useVariableHeight) => {
   }
 };
 
+const useVariableHeight = (columns, columnContainerHeight) => {
+  return columnHeight(columns, columnContainerHeight) < 17; //todo
+};
+
+const columnHeight = (columns, columnContainerHeight) => {
+  return (columnContainerHeight - columns.length) / columns.length;
+};
+
 const render = (
   columns,
-  columnContainerHeight,
+  columnHeight,
+  useVariableHeight,
   currentIndex,
   compareIndex,
   swapping
 ) =>
   columns.map((col, i) => {
     let width = col * 0.95;
-    let height = (columnContainerHeight - columns.length) / columns.length;
-    let useVariableHeight = height < 17;
-    height = useVariableHeight ? height + "px" : "1rem";
-    console.log(i + " " + currentIndex + " " + compareIndex);
+    let height = useVariableHeight ? columnHeight + "px" : "1rem";
     let activeClass = "";
     let swappingClass = "";
     if (i === currentIndex || i === compareIndex) {
@@ -54,7 +60,8 @@ const Columns = ({
     <Col id="columns_container">
       {render(
         columns,
-        columnContainerHeight,
+        columnHeight(columns, columnContainerHeight),
+        useVariableHeight(columns, columnContainerHeight),
         currentIndex,
         compareIndex,
         swapping

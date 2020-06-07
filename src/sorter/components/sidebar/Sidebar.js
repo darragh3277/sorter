@@ -11,7 +11,6 @@ const Sidebar = ({
   handleAlgorithmChange,
   sorting,
 }) => {
-  let dis = "disabled";
   return (
     <Col className="sidebar d-none d-sm-block pt-3" xs={1} sm={4} md={3} lg={2}>
       <h1 className="logo text-center">
