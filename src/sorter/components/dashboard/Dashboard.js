@@ -10,8 +10,8 @@ const Dashboard = ({ algorithm, size }) => {
       <Col xs={1}>
         <GiHamburgerMenu id="burger-menu" />
       </Col>
-      <Col xs={6} md={4} lg={3} xl={2}>
-        <strong>Algoritm:</strong> {algorithm}
+      <Col xs={6} md={5} lg={4} xl={3}>
+        <strong>Algoritm:</strong> {algorithm.name}
       </Col>
       <Col>
         <strong>Columns:</strong> {size}

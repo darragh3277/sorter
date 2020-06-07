@@ -4,6 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import "./Sorter.css";
 import Visualiser from "./components/visualiser/Visualiser";
+import generate from "./algorithms/generateColumns";
 
 class Sorter extends React.Component {
   constructor(props) {
@@ -11,23 +12,32 @@ class Sorter extends React.Component {
     this.state = {
       size: 10,
       columns: [],
-      algorithm: "quicksort",
+      algorithm: { key: "bubble_sort", name: "Bubble Sort" },
       columnContainerHeight: null,
     };
   }
 
   handleSort = (e) => {
     e.preventDefault();
-    console.log("sorting", e.target);
+    console.log(e.target);
   };
 
   handleSizeChange = (e) => {
-    let size = e.target.value;
-    if (isNaN(size) || size < 1 || size > 100) {
-      size = 10;
+    let size = parseInt(e.target.value);
+    if (!isNaN(size) && size >= 1 && size <= 100) {
+      let arr = new generate(size);
+      this.setState({
+        size,
+        columns: arr.getColumns(),
+      });
     }
+  };
+
+  handleAlgorithmChange = (e) => {
+    let index = e.target.selectedIndex;
+    let name = e.target[index].text;
     this.setState({
-      size,
+      algorithm: { key: e.target.value, name: name },
     });
   };
 
@@ -41,9 +51,10 @@ class Sorter extends React.Component {
   componentDidMount() {
     window.addEventListener("resize", this.columnContainerHeight);
     let height = document.getElementById("columns_container").offsetHeight;
+    let arr = new generate(this.state.size);
     this.setState({
       columnContainerHeight: height,
-      columns: [1, 20, 3, 23, 100],
+      columns: arr.getColumns(),
     });
   }
 
@@ -54,6 +65,7 @@ class Sorter extends React.Component {
           <Sidebar
             handleSort={this.handleSort}
             handleSizeChange={this.handleSizeChange}
+            handleAlgorithmChange={this.handleAlgorithmChange}
             size={this.state.size}
           />
           <Visualiser

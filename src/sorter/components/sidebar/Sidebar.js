@@ -4,7 +4,12 @@ import Button from "react-bootstrap/Button";
 import { BsFillBarChartFill } from "react-icons/bs";
 import "./Sidebar.css";
 
-const Sidebar = ({ handleSort, size, handleSizeChange }) => {
+const Sidebar = ({
+  handleSort,
+  size,
+  handleSizeChange,
+  handleAlgorithmChange,
+}) => {
   return (
     <Col className="sidebar d-none d-sm-block pt-3" xs={1} sm={4} md={3} lg={2}>
       <h1 className="logo text-center">
@@ -15,7 +20,12 @@ const Sidebar = ({ handleSort, size, handleSizeChange }) => {
       <form>
         <div className="form-group">
           <label htmlFor="algorithm">Algorithm</label>
-          <select className="form-control" name="algorithm" id="algorithm">
+          <select
+            className="form-control"
+            name="algorithm"
+            id="algorithm"
+            onChange={handleAlgorithmChange}
+          >
             <option value="bubble_sort">Bubble Sort</option>
             <option value="quick_sort">Quick Sort</option>
           </select>
