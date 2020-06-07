@@ -16,10 +16,20 @@ class Sorter extends React.Component {
     };
   }
 
-  handleSort(e) {
+  handleSort = (e) => {
     e.preventDefault();
-    console.log("sorting");
-  }
+    console.log("sorting", e.target);
+  };
+
+  handleSizeChange = (e) => {
+    let size = e.target.value;
+    if (isNaN(size) || size < 1 || size > 100) {
+      size = 10;
+    }
+    this.setState({
+      size,
+    });
+  };
 
   columnContainerHeight = () => {
     let height = document.getElementById("columns_container").offsetHeight;
@@ -41,7 +51,11 @@ class Sorter extends React.Component {
     return (
       <Container fluid id="sorter_container">
         <Row id="sorter_wrapper">
-          <Sidebar />
+          <Sidebar
+            handleSort={this.handleSort}
+            handleSizeChange={this.handleSizeChange}
+            size={this.state.size}
+          />
           <Visualiser
             algorithm={this.state.algorithm}
             size={this.state.size}
