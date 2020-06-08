@@ -29,6 +29,8 @@ const Sidebar = ({
             disabled={sorting}
           >
             <option value="bubble_sort">Bubble Sort</option>
+            <option value="merge_sort">Merge Sort</option>
+            <option value="heap_sort">Heap Sort</option>
             <option value="quick_sort">Quick Sort</option>
           </select>
         </div>

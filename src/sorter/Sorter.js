@@ -6,6 +6,7 @@ import "./Sorter.css";
 import Visualiser from "./components/visualiser/Visualiser";
 import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
+import MergeSort from "./algorithms/MergeSort";
 
 class Sorter extends React.Component {
   constructor(props) {
@@ -70,6 +71,12 @@ class Sorter extends React.Component {
         sorter = new BubbleSort(this.state.columns);
         break;
       case "quick_sort":
+        break;
+      case "merge_sort":
+        sorter = new MergeSort(this.state.columns);
+        return;
+        break;
+      case "heap_sort":
         break;
       default:
         return false;

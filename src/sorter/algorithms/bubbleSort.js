@@ -77,28 +77,6 @@ class BubbleSort {
       this.compareIndex++;
     }
   };
-
-  // step = () => {
-  //   let currentValue = this.columns[this.currentIndex];
-  //   let compareValue = this.columns[this.compareIndex];
-  //   if (currentValue > compareValue) {
-  //     this.columns[this.currentIndex] = compareValue;
-  //     this.columns[this.compareIndex] = currentValue;
-  //     this.swapped = true;
-  //   }
-  //   if (this.compareIndex + 1 >= this.columns.length - this.count) {
-  //     if (this.swapped !== true) this.isSorted = true;
-  //     this.swapped = false;
-  //     this.currentIndex = 0;
-  //     this.compareIndex = 1;
-  //     this.count++;
-  //   } else {
-  //     this.currentIndex++;
-  //     this.compareIndex++;
-  //   }
-
-  //   return this.columns;
-  // };
 }
 
 export default BubbleSort;
