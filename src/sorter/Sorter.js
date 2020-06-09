@@ -80,7 +80,7 @@ class Sorter extends React.Component {
 
   handleSizeChange = (e) => {
     let size = parseInt(e.target.value);
-    if (!isNaN(size) && size >= 2 && size <= 100) {
+    if (!isNaN(size) && size >= 1 && size <= 100) {
       let columns = new GenerateColumns(size).getColumns();
       this.setState({
         showColumnWarning: false,

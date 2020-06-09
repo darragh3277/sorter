@@ -41,7 +41,7 @@ const Sidebar = ({
           <input
             className="form-control"
             type="number"
-            min="2"
+            min="1"
             max="100"
             id="columns"
             name="columns"
@@ -51,7 +51,7 @@ const Sidebar = ({
           />
           {showColumnWarning === true && (
             <p className="text-center text-warning form-warning">
-              Number must be between 2 and 100
+              Number must be between 1 and 100
             </p>
           )}
         </div>
