@@ -21,6 +21,7 @@ class Sorter extends React.Component {
       compareValues: [],
       moveValues: [],
       sorting: false,
+      showColumnWarning: false,
     };
   }
 
@@ -55,28 +56,46 @@ class Sorter extends React.Component {
     sorter.getHistory().then((history) => {
       let steps = history.length;
       if (history.length > 0) this.handleUpdateVisual(history.shift());
-      let update = setInterval(() => {
-        this.handleUpdateVisual(history.shift());
-        if (history.length === 0) {
-          this.setState({
-            compareValues: [],
-            moveValues: [],
-            sorting: false,
-          });
-          clearInterval(update);
-        }
-      }, animationDuration / steps);
+      if (history.length > 0) {
+        let update = setInterval(() => {
+          this.handleUpdateVisual(history.shift());
+          if (history.length === 0) {
+            this.setState({
+              compareValues: [],
+              moveValues: [],
+              sorting: false,
+            });
+            clearInterval(update);
+          }
+        }, animationDuration / steps);
+      } else {
+        this.setState({
+          compareValues: [],
+          moveValues: [],
+          sorting: false,
+        });
+      }
     });
   };
 
   handleSizeChange = (e) => {
     let size = parseInt(e.target.value);
-    if (!isNaN(size) && size >= 1 && size <= 100) {
+    if (!isNaN(size) && size >= 2 && size <= 100) {
       let columns = new GenerateColumns(size).getColumns();
       this.setState({
+        showColumnWarning: false,
         size,
         columns,
       });
+    } else {
+      this.setState({
+        showColumnWarning: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          showColumnWarning: false,
+        });
+      }, 3000);
     }
   };
 
@@ -116,6 +135,7 @@ class Sorter extends React.Component {
             handleAlgorithmChange={this.handleAlgorithmChange}
             size={this.state.size}
             sorting={this.state.sorting}
+            showColumnWarning={this.state.showColumnWarning}
           />
           <Visualiser
             algorithm={this.state.algorithm}

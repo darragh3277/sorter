@@ -10,6 +10,7 @@ const Sidebar = ({
   handleSizeChange,
   handleAlgorithmChange,
   sorting,
+  showColumnWarning,
 }) => {
   return (
     <Col className="sidebar d-none d-sm-block pt-3" xs={1} sm={4} md={3} lg={2}>
@@ -40,7 +41,7 @@ const Sidebar = ({
           <input
             className="form-control"
             type="number"
-            min="1"
+            min="2"
             max="100"
             id="columns"
             name="columns"
@@ -48,6 +49,11 @@ const Sidebar = ({
             value={size}
             disabled={sorting}
           />
+          {showColumnWarning === true && (
+            <p className="text-center text-warning form-warning">
+              Number must be between 2 and 100
+            </p>
+          )}
         </div>
         <hr />
         <div className="text-center pt-3">
@@ -56,7 +62,7 @@ const Sidebar = ({
             className="btn btn-block btn-light"
             disabled={sorting}
           >
-            Sort
+            {sorting ? "Sorting" : "Sort"}
           </Button>
         </div>
       </form>
