@@ -40,7 +40,6 @@ class Sorter extends React.Component {
     switch (algorithm) {
       case "bubble_sort":
         sorter = new BubbleSort(this.state.columns);
-        return;
         break;
       case "quick_sort":
         break;
