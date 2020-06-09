@@ -1,10 +1,17 @@
 class MergeSort {
   constructor(columns) {
     this.columns = columns;
+    this.isSorted = false;
+    this.steps = [];
   }
 
   sort = () => {
-    return mergeSort(this.columns);
+    return new Promise((resolve) => {
+      this.steps.push([this.columns, null, null, false, false]);
+      let sorted = this.mergeSort(this.columns);
+      this.steps.push([sorted, null, null, false, false]);
+      resolve(this.steps);
+    });
   };
 
   mergeSort = (columns) => {
@@ -12,7 +19,7 @@ class MergeSort {
     let splitIndex = Math.ceil(columns.length / 2);
     let leftArr = columns.slice(0, splitIndex);
     let rightArr = columns.slice(splitIndex);
-    return merge(mergeSort(leftArr), mergeSort(rightArr));
+    return this.merge(this.mergeSort(leftArr), this.mergeSort(rightArr));
   };
 
   merge = (left, right) => {

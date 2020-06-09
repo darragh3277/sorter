@@ -62,6 +62,22 @@ class Sorter extends React.Component {
     }
   };
 
+  handleUpdateVisual = (
+    columns,
+    currentIndex,
+    compareIndex,
+    sorting,
+    swapping
+  ) => {
+    this.setState({
+      columns,
+      currentIndex,
+      compareIndex,
+      sorting,
+      swapping,
+    });
+  };
+
   handleSort = (e) => {
     e.preventDefault();
     let algorithm = e.target.algorithm.value;
@@ -74,14 +90,35 @@ class Sorter extends React.Component {
         break;
       case "merge_sort":
         sorter = new MergeSort(this.state.columns);
-        return;
         break;
       case "heap_sort":
         break;
       default:
         return false;
     }
-    this.runSorter(sorter);
+    sorter.sort().then((steps) => {
+      if (steps.length > 0) console.log(steps.pop());
+      let update = setInterval(() => {
+        console.log(steps.pop());
+        if (steps.length === 0) clearInterval(update);
+      }, 1000);
+    });
+    // let sorted = new Promise((resolve) => {
+    //   resolve(sorter.sort());
+    // });
+    // sorted.then(() => {
+    //   let update = setInterval(() => {
+    //     console.log(sorter.stateChanges.pop());
+    //     if (sorter.stateChanges.length === 0) clearInterval(update);
+    //   }, 1000);
+    // });
+    // sorter.sort().then(() => {
+    //   let update = setInterval(() => {
+    //     console.log(sorter.stateChanges.pop());
+    //     if (sorter.stateChanges.length === 0) clearInterval(update);
+    //   }, 1000);
+    // });
+    //this.runSorter(sorter);
   };
 
   handleSizeChange = (e) => {
