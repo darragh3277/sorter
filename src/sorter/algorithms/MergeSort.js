@@ -1,16 +1,31 @@
 class MergeSort {
   constructor(columns) {
+    this.currentColumns = columns;
     this.columns = columns;
-    this.isSorted = false;
-    this.steps = [];
+    this.history = [];
   }
 
+  log = (currentColumns, valA, valB) => {
+    if (valA === undefined || valB === undefined) return;
+    this.history.push([[...currentColumns], [valA, valB], []]); //before
+    if (valA > valB) {
+      let valBIndex = currentColumns.indexOf(valB);
+      currentColumns.splice(valBIndex, 1);
+      let valAIndex = currentColumns.indexOf(valA);
+      currentColumns.splice(valAIndex, 0, valB);
+      this.history.push([[...currentColumns], [valA, valB], [valB]]); //after
+      this.currentColumns = currentColumns;
+    }
+  };
+
   sort = () => {
+    return this.mergeSort(this.columns);
+  };
+
+  getHistory = () => {
     return new Promise((resolve) => {
-      this.steps.push([this.columns, null, null, false, false]);
-      let sorted = this.mergeSort(this.columns);
-      this.steps.push([sorted, null, null, false, false]);
-      resolve(this.steps);
+      this.mergeSort(this.columns);
+      resolve(this.history);
     });
   };
 
@@ -25,6 +40,7 @@ class MergeSort {
   merge = (left, right) => {
     let merged = [];
     while (left.length > 0 || right.length > 0) {
+      this.log([...this.currentColumns], left[0], right[0]);
       if (left[0] > right[0] || left.length === 0) {
         merged.push(right.shift());
       } else if (right[0] > left[0] || right.length === 0) {

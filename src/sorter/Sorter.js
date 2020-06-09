@@ -8,6 +8,8 @@ import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
 import MergeSort from "./algorithms/MergeSort";
 
+const animationDuration = 10000; //time in ms
+
 class Sorter extends React.Component {
   constructor(props) {
     super(props);
@@ -16,65 +18,17 @@ class Sorter extends React.Component {
       columns: [],
       algorithm: { key: "bubble_sort", name: "Bubble Sort" },
       columnContainerHeight: null,
-      currentIndex: null,
-      compareIndex: null,
+      compareValues: [],
+      moveValues: [],
       sorting: false,
-      swapping: false,
     };
   }
 
-  runSorter = (sorter) => {
-    if (sorter.getIsSorted() === true) {
-      this.setState({
-        currentIndex: null,
-        compareIndex: null,
-        sorting: false,
-      });
-      return true;
-    }
-    this.setState({
-      currentIndex: sorter.getCurrentIndex(),
-      compareIndex: sorter.getCompareIndex(),
-      sorting: true,
-    });
-    if (sorter.compare()) {
-      setTimeout(() => {
-        this.setState({
-          swapping: true,
-        });
-        setTimeout(() => {
-          sorter.swap();
-          this.setState({
-            columns: sorter.getColumns(),
-            swapping: false,
-          });
-          sorter.step();
-          setTimeout(() => {
-            this.runSorter(sorter);
-          }, sorter.getCompareSpeed());
-        }, sorter.getSwapSpeed());
-      }, sorter.getCompareSpeed());
-    } else {
-      sorter.step();
-      setTimeout(() => {
-        this.runSorter(sorter);
-      }, sorter.getCompareSpeed());
-    }
-  };
-
-  handleUpdateVisual = (
-    columns,
-    currentIndex,
-    compareIndex,
-    sorting,
-    swapping
-  ) => {
+  handleUpdateVisual = ([columns, compareValues, moveValues]) => {
     this.setState({
       columns,
-      currentIndex,
-      compareIndex,
-      sorting,
-      swapping,
+      compareValues,
+      moveValues,
     });
   };
 
@@ -85,6 +39,7 @@ class Sorter extends React.Component {
     switch (algorithm) {
       case "bubble_sort":
         sorter = new BubbleSort(this.state.columns);
+        return;
         break;
       case "quick_sort":
         break;
@@ -96,38 +51,31 @@ class Sorter extends React.Component {
       default:
         return false;
     }
-    sorter.sort().then((steps) => {
-      if (steps.length > 0) console.log(steps.pop());
+    this.setState({ sorting: true });
+    sorter.getHistory().then((history) => {
+      let steps = history.length;
+      if (history.length > 0) this.handleUpdateVisual(history.shift());
       let update = setInterval(() => {
-        console.log(steps.pop());
-        if (steps.length === 0) clearInterval(update);
-      }, 1000);
+        this.handleUpdateVisual(history.shift());
+        if (history.length === 0) {
+          this.setState({
+            compareValues: [],
+            moveValues: [],
+            sorting: false,
+          });
+          clearInterval(update);
+        }
+      }, animationDuration / steps);
     });
-    // let sorted = new Promise((resolve) => {
-    //   resolve(sorter.sort());
-    // });
-    // sorted.then(() => {
-    //   let update = setInterval(() => {
-    //     console.log(sorter.stateChanges.pop());
-    //     if (sorter.stateChanges.length === 0) clearInterval(update);
-    //   }, 1000);
-    // });
-    // sorter.sort().then(() => {
-    //   let update = setInterval(() => {
-    //     console.log(sorter.stateChanges.pop());
-    //     if (sorter.stateChanges.length === 0) clearInterval(update);
-    //   }, 1000);
-    // });
-    //this.runSorter(sorter);
   };
 
   handleSizeChange = (e) => {
     let size = parseInt(e.target.value);
     if (!isNaN(size) && size >= 1 && size <= 100) {
-      let arr = new GenerateColumns(size);
+      let columns = new GenerateColumns(size).getColumns();
       this.setState({
         size,
-        columns: arr.getColumns(),
+        columns,
       });
     }
   };
@@ -149,11 +97,12 @@ class Sorter extends React.Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.columnContainerHeight);
-    let height = document.getElementById("columns_container").offsetHeight;
-    let arr = new GenerateColumns(this.state.size);
+    let columnsContainer = document.getElementById("columns_container");
+    let height = columnsContainer ? columnsContainer.offsetHeight : 0;
+    let columns = new GenerateColumns(this.state.size);
     this.setState({
       columnContainerHeight: height,
-      columns: arr.getColumns(),
+      columns: columns.getColumns(),
     });
   }
 
@@ -173,9 +122,8 @@ class Sorter extends React.Component {
             size={this.state.size}
             columns={this.state.columns}
             columnContainerHeight={this.state.columnContainerHeight}
-            currentIndex={this.state.currentIndex}
-            compareIndex={this.state.compareIndex}
-            swapping={this.state.swapping}
+            compareValues={this.state.compareValues}
+            moveValues={this.state.moveValues}
           />
         </Row>
       </Container>

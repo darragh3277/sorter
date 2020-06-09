@@ -9,9 +9,8 @@ const Visualiser = ({
   columns,
   size,
   columnContainerHeight,
-  currentIndex,
-  compareIndex,
-  swapping,
+  compareValues,
+  moveValues,
 }) => {
   return (
     <Col className="m-2" id="visualiser_container">
@@ -19,9 +18,8 @@ const Visualiser = ({
       <Columns
         columns={columns}
         columnContainerHeight={columnContainerHeight}
-        currentIndex={currentIndex}
-        compareIndex={compareIndex}
-        swapping={swapping}
+        compareValues={compareValues}
+        moveValues={moveValues}
       />
     </Col>
   );

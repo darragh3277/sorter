@@ -25,24 +25,19 @@ const render = (
   columns,
   columnHeight,
   useVariableHeight,
-  currentIndex,
-  compareIndex,
-  swapping
+  compareValues,
+  moveValues
 ) =>
-  columns.map((col, i) => {
+  columns.map((col) => {
     let width = col * 0.95;
     let height = useVariableHeight ? columnHeight + "px" : "1rem";
-    let activeClass = "";
-    let swappingClass = "";
-    if (i === currentIndex || i === compareIndex) {
-      activeClass = "active";
-      if (swapping === true) swappingClass = "swapping";
-    }
+    let activeClass = compareValues.indexOf(col) === -1 ? "" : "active";
+    let moveClass = moveValues.indexOf(col) === -1 ? "" : "move";
     return (
       <Row className="column_container pl-1" key={col}>
         {renderNumbers(col, useVariableHeight)}
         <span
-          className={"column " + activeClass + " " + swappingClass}
+          className={"column " + activeClass + " " + moveClass}
           style={{ width: width + "%", height: height }}
         ></span>
       </Row>
@@ -52,9 +47,8 @@ const render = (
 const Columns = ({
   columns,
   columnContainerHeight,
-  currentIndex,
-  compareIndex,
-  swapping,
+  compareValues,
+  moveValues,
 }) => {
   return (
     <Col id="columns_container">
@@ -62,9 +56,8 @@ const Columns = ({
         columns,
         columnHeight(columns, columnContainerHeight),
         useVariableHeight(columns, columnContainerHeight),
-        currentIndex,
-        compareIndex,
-        swapping
+        compareValues,
+        moveValues
       )}
     </Col>
   );
