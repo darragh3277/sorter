@@ -8,6 +8,7 @@ import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
 import MergeSort from "./algorithms/MergeSort";
 import QuickSort from "./algorithms/QuickSort";
+import HeapSort from "./algorithms/HeapSort";
 
 const animationDuration = 10000; //time in ms
 
@@ -49,6 +50,7 @@ class Sorter extends React.Component {
         sorter = new MergeSort(this.state.columns);
         break;
       case "heap_sort":
+        sorter = new HeapSort(this.state.columns);
         break;
       default:
         return false;
