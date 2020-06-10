@@ -44,8 +44,6 @@ class Sorter extends React.Component {
         break;
       case "quick_sort":
         sorter = new QuickSort(this.state.columns);
-        // console.log(sorter.getHistory());
-        // return;
         break;
       case "merge_sort":
         sorter = new MergeSort(this.state.columns);
@@ -124,8 +122,7 @@ class Sorter extends React.Component {
     let columns = new GenerateColumns(this.state.size);
     this.setState({
       columnContainerHeight: height,
-      // columns: columns.getColumns(),
-      columns: [2, 5, 4, 7, 1, 3, 8, 6],
+      columns: columns.getColumns(),
     });
   }
 
