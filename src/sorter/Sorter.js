@@ -7,6 +7,7 @@ import Visualiser from "./components/visualiser/Visualiser";
 import GenerateColumns from "./algorithms/GenerateColumns";
 import BubbleSort from "./algorithms/BubbleSort";
 import MergeSort from "./algorithms/MergeSort";
+import QuickSort from "./algorithms/QuickSort";
 
 const animationDuration = 10000; //time in ms
 
@@ -42,6 +43,9 @@ class Sorter extends React.Component {
         sorter = new BubbleSort(this.state.columns);
         break;
       case "quick_sort":
+        sorter = new QuickSort(this.state.columns);
+        // console.log(sorter.getHistory());
+        // return;
         break;
       case "merge_sort":
         sorter = new MergeSort(this.state.columns);
@@ -120,7 +124,8 @@ class Sorter extends React.Component {
     let columns = new GenerateColumns(this.state.size);
     this.setState({
       columnContainerHeight: height,
-      columns: columns.getColumns(),
+      // columns: columns.getColumns(),
+      columns: [2, 5, 4, 7, 1, 3, 8, 6],
     });
   }
 

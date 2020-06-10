@@ -16,6 +16,10 @@ class BubbleSort {
     });
   };
 
+  sort = () => {
+    return this.bubbleSort(this.columns, this.columns.length);
+  };
+
   bubbleSort = (columns, pos) => {
     let sorted = true;
     for (let i = 0; i < pos - 1; i++) {
