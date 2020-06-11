@@ -28,6 +28,7 @@ const Sidebar = ({
             id="algorithm"
             onChange={handleAlgorithmChange}
             disabled={sorting}
+            defaultValue="heap_sort"
           >
             <option value="bubble_sort">Bubble Sort</option>
             <option value="merge_sort">Merge Sort</option>

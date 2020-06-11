@@ -50,7 +50,10 @@ class Sorter extends React.Component {
         sorter = new MergeSort(this.state.columns);
         break;
       case "heap_sort":
-        sorter = new HeapSort(this.state.columns);
+        let columns = [6, 12, 10, 5, 1, 9];
+        sorter = new HeapSort(columns);
+        sorter.getHistory();
+        return;
         break;
       default:
         return false;
