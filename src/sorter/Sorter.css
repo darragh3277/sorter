@@ -12,3 +12,8 @@
   font-size: 1.25rem;
   font-weight: 700;
 }
+.wrapper {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}

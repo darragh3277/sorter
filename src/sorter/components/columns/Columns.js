@@ -29,7 +29,7 @@ const render = (
   moveValues
 ) =>
   columns.map((col) => {
-    let width = col * 0.95;
+    let width = col * (95 / columns.length);
     let height = useVariableHeight ? columnHeight + "px" : "1rem";
     let activeClass = compareValues.indexOf(col) === -1 ? "" : "active";
     let moveClass = moveValues.indexOf(col) === -1 ? "" : "move";

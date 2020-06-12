@@ -1,7 +1,5 @@
 import React from "react";
 import Sidebar from "./components/sidebar/Sidebar";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import "./Sorter.css";
 import Visualiser from "./components/visualiser/Visualiser";
 import GenerateColumns from "./algorithms/GenerateColumns";
@@ -24,6 +22,7 @@ class Sorter extends React.Component {
       moveValues: [],
       sorting: false,
       showColumnWarning: false,
+      displaySidebar: false,
     };
   }
 
@@ -110,6 +109,12 @@ class Sorter extends React.Component {
     });
   };
 
+  handleToggleSidebar = () => {
+    this.setState({
+      displaySidebar: !this.state.displaySidebar,
+    });
+  };
+
   columnContainerHeight = () => {
     let height = document.getElementById("columns_container").offsetHeight;
     this.setState({
@@ -130,26 +135,27 @@ class Sorter extends React.Component {
 
   render() {
     return (
-      <Container fluid id="sorter_container">
-        <Row id="sorter_wrapper">
-          <Sidebar
-            handleSort={this.handleSort}
-            handleSizeChange={this.handleSizeChange}
-            handleAlgorithmChange={this.handleAlgorithmChange}
-            size={this.state.size}
-            sorting={this.state.sorting}
-            showColumnWarning={this.state.showColumnWarning}
-          />
-          <Visualiser
-            algorithm={this.state.algorithm}
-            size={this.state.size}
-            columns={this.state.columns}
-            columnContainerHeight={this.state.columnContainerHeight}
-            compareValues={this.state.compareValues}
-            moveValues={this.state.moveValues}
-          />
-        </Row>
-      </Container>
+      <div className="wrapper" id="sorter_container">
+        <Sidebar
+          handleSort={this.handleSort}
+          handleSizeChange={this.handleSizeChange}
+          handleAlgorithmChange={this.handleAlgorithmChange}
+          size={this.state.size}
+          sorting={this.state.sorting}
+          showColumnWarning={this.state.showColumnWarning}
+          displaySidebar={this.state.displaySidebar}
+        />
+        <Visualiser
+          algorithm={this.state.algorithm}
+          size={this.state.size}
+          columns={this.state.columns}
+          columnContainerHeight={this.state.columnContainerHeight}
+          compareValues={this.state.compareValues}
+          moveValues={this.state.moveValues}
+          displaySidebar={this.state.displaySidebar}
+          handleToggleSidebar={this.handleToggleSidebar}
+        />
+      </div>
     );
   }
 }

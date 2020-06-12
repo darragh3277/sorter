@@ -11,10 +11,17 @@ const Visualiser = ({
   columnContainerHeight,
   compareValues,
   moveValues,
+  handleToggleSidebar,
+  displaySidebar,
 }) => {
   return (
     <Col className="m-2" id="visualiser_container">
-      <Dashboard algorithm={algorithm} size={size} />
+      <Dashboard
+        algorithm={algorithm}
+        size={size}
+        handleToggleSidebar={handleToggleSidebar}
+        displaySidebar={displaySidebar}
+      />
       <Columns
         columns={columns}
         columnContainerHeight={columnContainerHeight}

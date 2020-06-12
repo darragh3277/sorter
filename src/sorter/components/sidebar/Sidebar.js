@@ -1,5 +1,4 @@
 import React from "react";
-import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { BsFillBarChartFill } from "react-icons/bs";
 import "./Sidebar.css";
@@ -11,9 +10,13 @@ const Sidebar = ({
   handleAlgorithmChange,
   sorting,
   showColumnWarning,
+  displaySidebar,
 }) => {
   return (
-    <Col className="sidebar d-none d-sm-block pt-3" xs={1} sm={4} md={3} lg={2}>
+    <div
+      id="sidebar"
+      className={"p-4 " + (displaySidebar === false && "hidden")}
+    >
       <h1 className="logo text-center">
         <BsFillBarChartFill className="logo-icon" />
         SORTER
@@ -28,7 +31,6 @@ const Sidebar = ({
             id="algorithm"
             onChange={handleAlgorithmChange}
             disabled={sorting}
-            defaultValue="heap_sort"
           >
             <option value="bubble_sort">Bubble Sort</option>
             <option value="merge_sort">Merge Sort</option>
@@ -67,7 +69,7 @@ const Sidebar = ({
           </Button>
         </div>
       </form>
-    </Col>
+    </div>
   );
 };
 export default Sidebar;
