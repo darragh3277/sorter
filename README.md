@@ -4,10 +4,8 @@ I created sorter as an exercise to refresh my memory of sorting algorithms, to h
 
 ### Running Locally
 
-Sorter is a react app, to run locally you will need to have node installed. Clone the project to your machine, run npm install followed by npm start.
+Sorter is a react app, to run locally you will need to have node installed. Clone the project to your machine, run `npm install` followed by `npm start`.
 
 ### Testing
 
-There are some very basic tests included which I plan to add to. To run the tests run the following command
-
-### `npm run test`
+There are some very basic tests included which I plan to add to. To run the tests run `npm run test`
