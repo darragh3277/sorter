@@ -15,7 +15,7 @@ const Visualiser = ({
   displaySidebar,
 }) => {
   return (
-    <Col className="m-2" id="visualiser_container">
+    <Col className="mt-2" id="visualiser_container">
       <Dashboard
         algorithm={algorithm}
         size={size}

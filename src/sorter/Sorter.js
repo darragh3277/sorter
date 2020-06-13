@@ -8,7 +8,10 @@ import MergeSort from "./algorithms/MergeSort";
 import QuickSort from "./algorithms/QuickSort";
 import HeapSort from "./algorithms/HeapSort";
 
-const animationDuration = 10000; //time in ms
+//time in ms
+//very rough as time to update state
+//is not taken into account
+const animationDuration = 10000;
 
 class Sorter extends React.Component {
   constructor(props) {
