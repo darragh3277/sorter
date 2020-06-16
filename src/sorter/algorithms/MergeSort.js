@@ -19,7 +19,7 @@ class MergeSort {
   };
 
   sort = () => {
-    return this.mergeSort(this.columns);
+    return this.columns.length === 0 ? [] : this.mergeSort(this.columns);
   };
 
   getHistory = () => {
