@@ -9,7 +9,7 @@ class HeapSort {
   };
 
   sort = () => {
-    this.heapSort(this.columns);
+    return this.heapSort(this.columns);
   };
 
   getHistory = () => {
