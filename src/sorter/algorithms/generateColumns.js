@@ -3,6 +3,7 @@ class GenerateColumns {
     this.size = size;
   }
   getColumns = () => {
+    if (this.size < 0) return [];
     let arr = new Array(this.size);
     for (let i = 0; i < this.size; i++) {
       arr[i] = i + 1;

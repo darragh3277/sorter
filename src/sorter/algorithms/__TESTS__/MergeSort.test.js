@@ -1,4 +1,4 @@
-import MergeSort from "./MergeSort";
+import MergeSort from "../MergeSort";
 
 const columns = [
   {

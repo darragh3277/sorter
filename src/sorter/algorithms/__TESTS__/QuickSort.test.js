@@ -1,4 +1,4 @@
-import HeapSort from "./HeapSort";
+import QuickSort from "../QuickSort";
 
 const columns = [
   {
@@ -10,16 +10,16 @@ const columns = [
 ];
 
 test.each(columns)("Arrays should be sorted", ({ input, expected }) => {
-  let sorter = new HeapSort(input);
+  let sorter = new QuickSort(input);
   expect(sorter.sort()).toStrictEqual(expected);
 });
 
 test("Empty should return empty", () => {
-  let sorter = new HeapSort([]);
+  let sorter = new QuickSort([]);
   expect(sorter.sort()).toStrictEqual([]);
 });
 
 test("Array of size 1 should return itself", () => {
-  let sorter = new HeapSort([2]);
+  let sorter = new QuickSort([2]);
   expect(sorter.sort()).toStrictEqual([2]);
 });
