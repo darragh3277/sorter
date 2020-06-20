@@ -57,7 +57,7 @@ class Sorter extends React.Component {
       default:
         return false;
     }
-    this.setState({ sorting: true });
+    this.setState({ sorting: true, displaySidebar: false });
     sorter.getHistory().then((history) => {
       let steps = history.length;
       if (history.length > 0) this.handleUpdateVisual(history.shift());
