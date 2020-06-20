@@ -107,8 +107,10 @@ class Sorter extends React.Component {
   handleAlgorithmChange = (e) => {
     let index = e.target.selectedIndex;
     let name = e.target[index].text;
+    let columns = new GenerateColumns(this.state.size).getColumns();
     this.setState({
       algorithm: { key: e.target.value, name: name },
+      columns,
     });
   };
 
